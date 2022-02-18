@@ -53,29 +53,9 @@
             let text = document.getElementById("textarea").value;
             text = text.toLowerCase();
             let myArray;
-            let myArrayNew = [];
-            /*myArray = text.split(" ");*/
             myArray = [...text];
             let i;
             let newText;
-            let mainText = "";
-            /*for (i = myArray.length; i > 0; i--) {
-                let word = myArray.shift();
-                let tab = [...word];
-                tab[0] = tab[0].toUpperCase();
-                let newTxt = tab.join("");
-                myArrayNew.push(newTxt);
-            }
-            for (i = myArrayNew.length; i > 0; i--) {
-                newText = myArrayNew.shift();
-                if (i == 1){
-                    mainText += newText;
-                }
-                else {
-                    mainText += newText + " ";
-                }
-            }
-            document.getElementById("textarea").value = mainText;*/
             myArray[0] = myArray[0].toUpperCase();
             newText = myArray.join("");
             myArray = [...newText];
@@ -90,7 +70,6 @@
             console.log(newText);
             document.getElementById("textarea").value = newText;
         });
-
         function download() {
             let element = document.createElement('a');
             element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(document.getElementById("textarea").value));
@@ -103,8 +82,6 @@
 
             document.body.removeChild(element);
         }
-
-        // Start file download.
     </script>
 </body>
 </html>
