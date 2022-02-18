@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <div class="title">Case Converter</div>
+    <textarea id="textarea"></textarea>
+    <br>
+    <button id="upper-case">Upper</button>
+    <button id="lower-case">Lower</button>
+    <button id="proper-case">Proper</button>
+    <button id="sentence-case">Sentence</button>
+    <button id="save-text-file" onclick="download()">Save Text File</button>
+    <script>
+        document.getElementById("upper-case").addEventListener("click", function() {
+            let text = document.getElementById("textarea").value;
+            document.getElementById("textarea").value = text.toUpperCase();
+        });
+        document.getElementById("lower-case").addEventListener("click", function() {
+            let text = document.getElementById("textarea").value;
+            document.getElementById("textarea").value = text.toLowerCase();
+        });
+        document.getElementById("proper-case").addEventListener("click", function () {
+            let text = document.getElementById("textarea").value;
+            text = text.toLowerCase();
+            let myArray;
+            let myArrayNew = [];
+            myArray = text.split(" ");
+            let i;
+            let newText;
+            let mainText = "";
+            for (i = myArray.length; i > 0; i--) {
+                let word = myArray.shift();
+                let tab = [...word];
+                tab[0] = tab[0].toUpperCase();
+                let newTxt = tab.join("");
+                myArrayNew.push(newTxt);
+            }
+            for (i = myArrayNew.length; i > 0; i--) {
+            newText = myArrayNew.shift();
+            if (i == 1){
+                mainText += newText;
+            }
+            else {
+                mainText += newText + " ";
+            }
+            }
+            document.getElementById("textarea").value = mainText;
+        });
+        document.getElementById("sentence-case").addEventListener("click", function() {
+            let text = document.getElementById("textarea").value;
+            text = text.toLowerCase();
+            let myArray;
+            let myArrayNew = [];
+            /*myArray = text.split(" ");*/
+            myArray = [...text];
+            let i;
+            let newText;
+            let mainText = "";
+            /*for (i = myArray.length; i > 0; i--) {
+                let word = myArray.shift();
+                let tab = [...word];
+                tab[0] = tab[0].toUpperCase();
+                let newTxt = tab.join("");
+                myArrayNew.push(newTxt);
+            }
+            for (i = myArrayNew.length; i > 0; i--) {
+                newText = myArrayNew.shift();
+                if (i == 1){
+                    mainText += newText;
+                }
+                else {
+                    mainText += newText + " ";
+                }
+            }
+            document.getElementById("textarea").value = mainText;*/
+            myArray[0] = myArray[0].toUpperCase();
+            newText = myArray.join("");
+            myArray = [...newText];
+            console.log(newText);
+            for (i = 0; i <= myArray.length; i++) {
+                console.log(myArray[i]);
+                if (myArray[i] == "." && myArray[i+1] == " ") {
+                    myArray[i+2] = myArray[i+2].toUpperCase();
+                    newText = myArray.join("");
+                }
+            }
+            console.log(newText);
+            document.getElementById("textarea").value = newText;
+        });
+
+        function download() {
+            let element = document.createElement('a');
+            element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(document.getElementById("textarea").value));
+            element.setAttribute('download', "text.txt");
+
+            element.style.display = 'none';
+            document.body.appendChild(element);
+
+            element.click();
+
+            document.body.removeChild(element);
+        }
+
+        // Start file download.
+    </script>
+</body>
+</html>
